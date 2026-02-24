@@ -88,5 +88,5 @@ El sistema cumple con:
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/usuario/proyecto.git
-   cd proyecto
+   git clone https://github.com/Victorserrato2711/inventario_flet.git
+cd inventario_flet
