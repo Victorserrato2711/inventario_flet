@@ -4,7 +4,6 @@ from utils.mensajes import mostrar_mensaje, mostrar_mensaje_error
 from views.layout import app_layout
 
 def agregar_usuario_view(page: ft.Page, db, refrescar_usuarios):
-    # --- Campos del formulario ---
     usuario_field = ft.TextField(label="Usuario")
     nombre_field = ft.TextField(label="Nombre")
     correo_field = ft.TextField(label="Correo")
