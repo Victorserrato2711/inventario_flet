@@ -6,7 +6,6 @@ from utils.exportar_pdf import exportar_ticket_pdf
 from utils.mensajes import mostrar_mensaje, mostrar_mensaje_error
 
 
-# --- Generar Ticket de Entrada ---
 def generar_ticket_entrada(db, id_entrada: str):
     entrada = db.execute(
         text("""
@@ -41,10 +40,9 @@ def generar_ticket_entrada(db, id_entrada: str):
     lineas.append("==================================================")
     lineas.append("Gracias por su entrega. Este comprobante es válido para aclaraciones.")
 
-    return "\n".join(lineas)   # ✅ devolvemos string
+    return "\n".join(lineas)   
 
 
-# --- Pantalla Principal de Entradas ---
 def ver_entradas(page: ft.Page, ir_home, ir_registro, db, refrescar_home):
     usuario_id = getattr(page, "usuario_id", None)
 
@@ -57,7 +55,6 @@ def ver_entradas(page: ft.Page, ir_home, ir_registro, db, refrescar_home):
         color="#FFFFFF"
     )
 
-    # --- Tabla ---
     tabla_detalle = ft.DataTable(
         heading_row_color=ft.Colors.BLUE_GREY_900,
         border=ft.border.all(1, ft.Colors.GREY),
@@ -70,7 +67,6 @@ def ver_entradas(page: ft.Page, ir_home, ir_registro, db, refrescar_home):
         rows=[]
     )
 
-    # --- Función para cargar datos ---
     def cargar_datos(id_filtro=None):
         if id_filtro:
             registros = db.execute(
@@ -98,7 +94,7 @@ def ver_entradas(page: ft.Page, ir_home, ir_registro, db, refrescar_home):
         ]
         page.update()
 
-    # --- Botón buscar ---
+ 
     boton_buscar = ft.Button(
         "Buscar",
         on_click=lambda e: cargar_datos(filtro_id.value.strip()),
@@ -111,7 +107,7 @@ def ver_entradas(page: ft.Page, ir_home, ir_registro, db, refrescar_home):
         alignment=ft.MainAxisAlignment.CENTER
     )
 
-    # --- Contenido ---
+  
     contenido = ft.Column(
         spacing=20,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
