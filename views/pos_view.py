@@ -25,7 +25,7 @@ def pos_vista(page: ft.Page):
         page.views.append(app_layout(page, contenido_con_fondo, selected_index=4))
         page.update()
 
-    # ----- Inicio de Turno -----
+ 
     def mostrar_inicio_turno(e):
         page.views.clear()
 
@@ -72,7 +72,7 @@ def pos_vista(page: ft.Page):
         on_click=mostrar_inicio_turno
     )
 
-    # ----- Retiro de Caja -----
+    
     def mostrar_retiro(e):
         page.views.clear()
 
@@ -122,7 +122,7 @@ def pos_vista(page: ft.Page):
         on_click=mostrar_retiro
     )
 
-    # ----- Corte de Cierre -----
+    
     def mostrar_corte(e):
         page.views.clear()
 
@@ -203,7 +203,7 @@ def pos_vista(page: ft.Page):
         alignment=ft.MainAxisAlignment.CENTER,
     )
 
-    # --- Tabla de productos ---
+    
     tabla_productos = ft.DataTable(
         columns=[
             ft.DataColumn(ft.Container(ft.Text("Producto"), alignment=ft.alignment.Alignment(0, 0))),
@@ -240,7 +240,7 @@ def pos_vista(page: ft.Page):
             codigo = entrada  # solo código
             cantidad_ingresada = Decimal("1")
 
-        # Buscar producto por código
+        
         resultado = buscar_producto(db, codigo)
         if not resultado["ok"]:
             mostrar_mensaje_error(page, resultado["mensaje"])
@@ -459,14 +459,14 @@ def pos_vista(page: ft.Page):
         if confirmacion in page.overlay:
             page.overlay.remove(confirmacion)
             page.update()
-            codigo_input.focus()  # 🔹 devuelve el foco al campo al cerrar el overlay
+            codigo_input.focus()  
             page.update()
 
     def mostrar_opciones_pago(e):
         nonlocal confirmacion
         if not productos:
             mostrar_mensaje_error(page, "No hay productos a la venta")
-            codigo_input.focus()  # 🔹 devuelve el foco si no hay productos
+            codigo_input.focus()  
             page.update()
             return
 
