@@ -13,8 +13,6 @@ def usuario_view(page: ft.Page, db=None, refrescar_home=None):
     txt_buscar = ft.TextField(label="Buscar por Nombre", width=300, on_submit=lambda e: mostrar_usuarios())
     contenido = ft.Column(expand=True)
 
-    # ---- Habilitar Usuario -----
-
     def ir_habilitar_usuario(usuario_id, nombre_usuario):
         def ejecutar_habilitacion(uid):
             resultado = services.usuario_service.habilitar_usuario(db, uid)
@@ -24,8 +22,6 @@ def usuario_view(page: ft.Page, db=None, refrescar_home=None):
                     refrescar_home()
             else:
                 mostrar_mensaje_error(page, "Error: Usuario no encontrado")
-
-            # Navegación explícita: volver a la lista de usuarios
             page.views.clear()
             page.views.append(usuario_view(page, db, refrescar_home))
             page.update()
@@ -64,7 +60,6 @@ def usuario_view(page: ft.Page, db=None, refrescar_home=None):
         page.controls.append(confirmacion)
         page.update()
 
-    # --- Deshabilitar usuario ---
     def ir_deshabilitar_usuario(usuario_id, nombre_usuario):
         def ejecutar_deshabilitacion(uid):
             resultado = services.usuario_service.deshabilitar_usuario(db, uid)
@@ -118,7 +113,6 @@ def usuario_view(page: ft.Page, db=None, refrescar_home=None):
         page.controls.append(confirmacion)
         page.update()
 
-    # --- Editar usuario ---
     def ir_editar_usuario(usuario_id):
         usuarios = services.usuario_service.listar_usuarios(db)["usuarios"]
         usuario = next((u for u in usuarios if u["id"] == usuario_id), None)
@@ -181,7 +175,6 @@ def usuario_view(page: ft.Page, db=None, refrescar_home=None):
         page.views.append(editar_view)
         page.update()
 
-    # --- Mostrar usuarios ---
     def mostrar_usuarios(e=None):
         resultado = services.usuario_service.listar_usuarios(db)
         usuarios = resultado["usuarios"]
