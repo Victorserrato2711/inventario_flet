@@ -10,7 +10,6 @@ from utils.mensajes import mostrar_mensaje_error, mostrar_mensaje
 from views.layout import app_layout
 
 
-# --- Editar Categoría ---
 def editar_categoria_vista(page, volver, categoria_id, db, refrescar_home):
     resultado = consulta_id_categoria(db, categoria_id)
     if not resultado["ok"]:
@@ -138,8 +137,6 @@ def ver_categorias(page: ft.Page, ir_home, ir_agregar_categoria, ir_editar_categ
 
     return app_layout(page, contenido_con_fondo, selected_index=0)
 
-
-# --- Agregar Categoría ---
 def agregar_categoria_vista(page, volver, db, refrescar_home):
     id_field = ft.TextField(label="Id")
     nombre_field = ft.TextField(label="Nombre")
