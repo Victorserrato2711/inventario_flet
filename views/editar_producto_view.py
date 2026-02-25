@@ -23,12 +23,12 @@ def editar_producto_vista(page: ft.Page, id_producto: int, ir_home, db, refresca
 
     producto = resultado["producto"]
 
-    # Campos básicos
+    
     nombre_field = ft.TextField(label="Nombre", value=producto["nombre"])
     precio_field = ft.TextField(label="Precio", value=str(producto["precio"]))
     cantidad_field = ft.TextField(label="Cantidad", value=str(producto["cantidad"]))
 
-    # Dropdown de categorías
+    
     categorias = db.query(Categoria).all()
     categoria_dropdown = ft.Dropdown(
         label="Categoría",
@@ -52,7 +52,7 @@ def editar_producto_vista(page: ft.Page, id_producto: int, ir_home, db, refresca
             mostrar_mensaje_error(page, "Precio, cantidad y categoría deben ser numéricos")
             return
 
-        # Actualizar producto
+       
         resultado = actualizar_producto(
             db,
             int(id_producto),
