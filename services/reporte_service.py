@@ -8,7 +8,6 @@ from models import Producto, Categoria
 OUTPUT_DIR = "assets/reports/"
 
 def exportar_excel(nombre_archivo, encabezados_visibles, claves, resultados, hoja="Reporte"):
-    # Crear carpeta si no existe
     os.makedirs(os.path.dirname(OUTPUT_DIR + nombre_archivo), exist_ok=True)
 
     wb = Workbook()
@@ -43,7 +42,7 @@ def exportar_csv(nombre_archivo, encabezados_visibles, claves, resultados):
         "archivo": nombre_archivo
     }
 
-# Reporte: productos por categoría
+
 def reporte_productos_por_categoria(db):
     resultados = (
         db.query(Categoria.id, Categoria.nombre, func.count(Producto.id).label("total"))
@@ -53,12 +52,12 @@ def reporte_productos_por_categoria(db):
     )
     return [{"categoria_id": r[0], "categoria_nombre": r[1], "total": r[2]} for r in resultados]
 
-# Reporte: stock bajo
+
 def reporte_stock_bajo(db):
     resultados = db.query(Producto).filter(Producto.cantidad < 5).all()
     return [{"id": p.id, "nombre": p.nombre, "cantidad": p.cantidad} for p in resultados]
 
-# Reporte: valor del inventario
+
 def reporte_valor_inventario(db):
     resultados = db.query(
         Producto.id,
@@ -71,7 +70,7 @@ def reporte_valor_inventario(db):
 
     return [{"id": r[0], "nombre": r[1], "cantidad": r[2], "total": r[3], "categoria_nombre": r[4]} for r in resultados]
 
-# Reporte: administrativo de productos
+
 def reporte_administrativo_productos(db):
     resultados = db.query(
         Producto.id,
