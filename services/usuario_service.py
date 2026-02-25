@@ -7,8 +7,6 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from models import Usuario
 
-
-# ---- Habilitar Usuario -----
 def habilitar_usuario(db: Session, usuario_id: int):
     try:
         usuario = db.query(Usuario).filter_by(id=usuario_id).first()
@@ -23,7 +21,6 @@ def habilitar_usuario(db: Session, usuario_id: int):
         return {"ok": False, "mensaje": f"Error al habilitar usuario: {str(e)}"}
 
 
-# ---- Login ----
 def login_usuario(db: Session, usuario: str, contraseña: str):
     try:
         usuario_obj = db.query(Usuario).filter(Usuario.usuario == usuario.strip()).first()
@@ -57,14 +54,12 @@ def login_usuario(db: Session, usuario: str, contraseña: str):
     except SQLAlchemyError as e:
         return {"ok": False, "mensaje": f"Error en login: {str(e)}"}
 
-# --- Cambio de Contraseña ---
 def cambiar_contraseña(db: Session, usuario: str, nueva_contraseña: str):
     try:
         usuario_obj = db.query(Usuario).filter(Usuario.usuario == usuario.strip()).first()
         if not usuario_obj:
             return {"ok": False, "mensaje": "Usuario no encontrado"}
 
-        # Generar hash temporal (el usuario deberá cambiarla en login)
         salt = bcrypt.gensalt()
         hashed = bcrypt.hashpw(nueva_contraseña.encode("utf-8"), salt).decode("utf-8")
         usuario_obj.contrasena = hashed
@@ -78,7 +73,6 @@ def cambiar_contraseña(db: Session, usuario: str, nueva_contraseña: str):
         return {"ok": False, "mensaje": f"Error al actualizar contraseña: {str(e)}"}
 
 
-# ---- Crear Usuario ---
 def crear_usuario(db: Session, usuario: str, nombre: str, correo: str, puesto: str):
     try:
         # Normalización de entradas
@@ -103,7 +97,6 @@ def crear_usuario(db: Session, usuario: str, nombre: str, correo: str, puesto: s
             if existente_correo:
                 return {"ok": False, "mensaje": "El correo ya está registrado"}
 
-        # Generar contraseña temporal
         temp_pass = secrets.token_hex(4)
         hashed = bcrypt.hashpw(temp_pass.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
@@ -131,7 +124,6 @@ def crear_usuario(db: Session, usuario: str, nombre: str, correo: str, puesto: s
         return {"ok": False, "mensaje": f"Error al crear usuario: {str(e)}"}
 
 
-# ---- Editar Usuario ----
 def editar_usuario(db: Session, usuario_id: int, nombre: str = None,
                    correo: str = None, puesto: str = None, activo: bool = None):
     try:
@@ -156,8 +148,6 @@ def editar_usuario(db: Session, usuario_id: int, nombre: str = None,
         db.rollback()
         return {"ok": False, "mensaje": f"Error al editar usuario: {str(e)}"}
 
-
-# ---- Deshabilitar Usuario ----
 def deshabilitar_usuario(db: Session, usuario_id: int):
     try:
         usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
@@ -173,8 +163,6 @@ def deshabilitar_usuario(db: Session, usuario_id: int):
         db.rollback()
         return {"ok": False, "mensaje": f"Error al deshabilitar usuario: {str(e)}"}
 
-
-# ---- Listar Usuarios ----
 def listar_usuarios(db: Session):
     try:
         usuarios = db.query(Usuario).order_by(Usuario.id).all()
