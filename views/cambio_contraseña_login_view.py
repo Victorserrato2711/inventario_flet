@@ -8,7 +8,6 @@ def cambio_contraseña_login_view(page: ft.Page, usuario: str, db):
     nueva_field = ft.TextField(label="Nueva Contraseña", password=True)
     confirmar_field = ft.TextField(label="Confirma la contraseña", password=True)
 
-    # --- Validación de requisitos ---
     def validar_contrasena(password: str):
         if len(password) < 8:
             return "La contraseña debe tener al menos 8 caracteres"
