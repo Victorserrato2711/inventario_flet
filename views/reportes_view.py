@@ -11,7 +11,7 @@ from services.reporte_service import (
 )
 
 def reportes_view(page: ft.Page, db, refrescar_home):
-    link_container = ft.Column()    # Aquí aparecerá el link
+    link_container = ft.Column()    
 
     reportes_dropdown = ft.Dropdown(
         label="Selecciona un reporte",
@@ -29,7 +29,7 @@ def reportes_view(page: ft.Page, db, refrescar_home):
 
     def mostrar_link(resultado):
         async def volver_reportes(e):
-            await page.launch_url(f"/reports/{resultado['archivo']}")  # CORREGIDO con await
+            await page.launch_url(f"/reports/{resultado['archivo']}")
             page.views.clear()
             page.views.append(reportes_view(page, db, refrescar_home))
             page.update()
